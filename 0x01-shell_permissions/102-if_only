@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo chown --from=guillaume --to=betty  hello
+chown betty --from=guillaume _hello
