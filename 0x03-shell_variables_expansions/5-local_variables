@@ -1,2 +1,2 @@
 #!/bin/bash
-printf "%s\n" "$(declare -F)" "$(set)" "$(env)"
+printf "%s\n" "$(declare -F)" "%s\n" "$(set)" "%s\n" "$(env)"
