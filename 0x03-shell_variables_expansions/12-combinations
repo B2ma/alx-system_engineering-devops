@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "$(echo {aa..zz} | tr -t  'oo'| head -n  64 | sort | tr '\n' ' ' )"
+echo {a..z}{a..z} | tr -d 'oo' | head -n 64 | tr ' ' '\n' | sort
