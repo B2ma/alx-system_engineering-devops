@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This script kills a process and prints "Killed"
+pid=$(pgrep -f "./7-highlander")
+kill -9 "$pid"
