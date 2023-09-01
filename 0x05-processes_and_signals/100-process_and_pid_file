@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# myscript.sh
+
+# Function to handle SIGTERM and SIGQUIT signals
+h_sigterm_sigquit() {
+    echo "I hate the kill command"
+    if [ -f /var/run/myscript.pid ]; then
+        rm /var/run/myscript.pid
+    fi
+    exit 0
+}
+
+# Function to handle SIGINT signal
+h_sigint() {
+    echo "Y U no love me?!"
+}
+
+# Register signal handlers
+trap 'h_sigterm_sigquit' SIGTERM SIGQUIT
+trap 'h_sigint' SIGINT
+
+# Get the script's PID and save it to a file
+echo $$ > /var/run/myscript.pid
+
+# Display "To infinity and beyond" indefinitely
+while true; do
+    echo "To infinity and beyond"
+    sleep 2
+done
+
