@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# This Bash (init) script 101-manage_my_process that manages manage_my_process.
+
+# Requirements:
+
+#  When passing the argument start:
+#	Starts manage_my_process
+#	Creates a file containing its PID in /var/run/my_process.pid
+#	Displays manage_my_process started
+#  When passing the argument stop:
+#	Stops manage_my_process
+#	Deletes the file /var/run/my_process.pid
+#	Displays manage_my_process stopped
+#  When passing the argument restart
+#	Stops manage_my_process
+#	Deletes the file /var/run/my_process.pid
+#	Starts manage_my_process
+#	Creates a file containing its PID in /var/run/my_process.pid
+#	Displays manage_my_process restarted
+#Displays Usage: manage_my_process {start|stop|restart} if any other argument
+#or no argument is passed
+
+SCRIPT_PATH="./manage_my_process"
+PID_FILE="/var/run/my_process.pid"
+
+do_start() {
+    if [ -f "$PID_FILE" ]; then
+        echo "manage_my_process is already running."
+        exit 1
+    fi
+
+    "$SCRIPT_PATH" &
+
+    MANAGE_PID=$$
+
+    echo "$MANAGE_PID" > "$PID_FILE"
+
+    echo "manage_my_process started"
+}
+
+do_stop() {
+    if [ -f "$PID_FILE" ]; then
+        PID=$(cat "$PID_FILE")
+
+        kill "$PID"
+        wait "$PID" 2>/dev/null
+        rm -f "$PID_FILE"
+
+        echo "manage_my_process stopped"
+    else
+        echo "manage_my_process is not running."
+    fi
+}
+
+case "$1" in
+    start)
+        do_start
+        ;;
+    stop)
+        do_stop
+        ;;
+    restart)
+        do_stop
+        do_start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac
+
+exit 0
