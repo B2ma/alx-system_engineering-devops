@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [ -f ~/"school" ] || [ -f "school.pub" ]; then
+    exit 1
+fi
+
+ssh-keygen -t rsa -b 4096 -f "school" -N "betty"
