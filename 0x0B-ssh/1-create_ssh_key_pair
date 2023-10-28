@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# This script creates an RSA key pair
 
 if [ -f ~/"school" ] || [ -f "school.pub" ]; then
     exit 1
