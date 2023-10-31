@@ -10,6 +10,6 @@ apt-get update
 apt-get install -y nginx
 echo "Hello World!" > /var/www/html/index.html
 sudo sed -i "30i $REDIRECT_301" /etc/nginx/sites-available/default
-echo "Ceci n'est pas une page" > /usr/share/nginx/html/404.html
-sudo sed -i "47i\ $PATTERN$ADD404_NOTFOUND" /etc/nginx/sites-available/default
+echo "Ceci n'est pas une page  " > /usr/share/nginx/html/404.html
+sudo sed -i "47i\ $PATTERN$TEXT404_NOTFOUND" /etc/nginx/sites-available/default
 sudo service nginx restart
