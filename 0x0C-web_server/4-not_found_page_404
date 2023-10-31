@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
-# Installs nginx web server and redirect to a link
+# Installs nginx web server and redirect to a page
 # addittionally custom 404 page to contain a given string
+
+REDIRECT_301="\\\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
+TEXT404_NOTFOUND="\n\\terror_page 404 /404.html;\n\tlocation = /var/www/html/404.html {\n\t\tinternal;\n\t}"
+PATTERN="#error_page 404 /404.html;"
 
 apt-get update
 apt-get install -y nginx
 echo "Hello World!" > /var/www/html/index.html
-echo "Ceci n'est pas une page  " > /usr/share/nginx/html/404.html
+sudo sed -i "30i $REDIRECT_301" /etc/nginx/sites-available/default
+echo "Ceci n'est pas une page" > /usr/share/nginx/html/404.html
+sudo sed -i "47i\ $PATTERN$ADD404_NOTFOUND" /etc/nginx/sites-available/default
 sudo service nginx restart
