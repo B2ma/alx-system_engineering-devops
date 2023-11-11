@@ -10,29 +10,14 @@ apt-get install --no-install-recommends software-properties-common
 add-apt-repository ppa:vbernat/haproxy-2.8
 apt-get install haproxy=2.8.\*
 
-printf %s "global
-    log /dev/log local0
-    log /dev/log local1 notice
-
-defaults
-    log global
-    mode http
-    option httplog
-    option dontlognull
-    timeout connect 5000
-    timeout client 50000
-    timeout server 50000
-
+cat <<EOL >> /etc/haproxy/haproxy.cfg
 frontend myfrontend
     bind *:80
-    mode http
     default_backend mybackend
 
 backend mybackend
-    mode http
     balance roundrobin
     server 403994-web-01 54.159.22.249:80 check
     server 403994-web-02 54.173.9.57:80 check
-" >> /etc/haproxy/haproxy.cfg
-echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
-service haproxy start
+EOL
+service haproxy restart
