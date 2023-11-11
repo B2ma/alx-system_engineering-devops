@@ -14,6 +14,12 @@ file { '/var/www/html/404.html':
   content => "Ceci n'est pas une page",
 }
 
+exec { 'set_nginx_header':
+  command => '/bin/bash -c "echo \"X-Served-By $HOSTNAME;\" > /etc/nginx/sites-available/default"',
+  notify  => Service['nginx'],
+  require => Package['nginx'],
+}
+
 file { '/etc/nginx/sites-available/default':
   content => @(EOF),
     server {
