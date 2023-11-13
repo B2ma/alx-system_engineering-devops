@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# This debugging script ensures that Nginx must be running, and listening on port 80 of all the server’s active IPv4 IPs
+
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+service nginx restart
