@@ -1,0 +1,11 @@
+
+frontend myfrontend
+    bind *:443 ssl crt /etc/letsencrypt/live/www.tererbeatrice.tech/fullchain.pem
+    bind *:80
+    default_backend mybackend
+
+backend mybackend
+    balance roundrobin
+    server 403994-web-01 54.159.22.249:80 check
+    server 403994-web-02 54.173.9.57:80 check
+
