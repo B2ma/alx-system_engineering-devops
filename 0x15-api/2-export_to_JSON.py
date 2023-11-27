@@ -28,9 +28,9 @@ if __name__ == "__main__":
         new_dict = {}
 
         if todo_entry['userId'] == int(sys.argv[1]):
-            new_dict['username'] = username
             new_dict['task'] = todo_entry['title']
             new_dict['completed'] = todo_entry['completed']
+            new_dict['username'] = username
             user_tasks.append(new_dict)
 
     final_dict = {}
