@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 """
-Fetches and displays the TODO list progress for a given employee ID.
+Python script to export data in the CSV format.
 """
-
+import csv
 import requests
 import sys
-import csv
 
 
 if __name__ == "__main__":
