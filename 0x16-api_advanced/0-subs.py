@@ -15,10 +15,11 @@ def number_of_subscribers(subreddit):
         return 0
     user_agent = {'User-Agent': 'CustomUserAgent'}
     url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
-    response = get(url, headers=user_agent, allow_redirects=False)
-    output = response.json()
 
     try:
+        response = get(url, headers=user_agent, allow_redirects=False)
+        response.raise_for_status()
+        output = response.json()
         return output.get('data').get('subscribers')
-    except Exeption:
+    except requests.exceptions.HTTPError as http_err:
         return 0
